@@ -1,0 +1,1148 @@
+% CS 455, SP'24 Software Requirements Document template
+% Software requirements template based on the template from
+% https://tex.stackexchange.com/questions/42602/software-requirements-specification-with-latex
+%
+\documentclass[letterpaper,12pt,oneside,listof=totoc]{scrreprt}
+\usepackage{listings}
+\usepackage{array}
+\usepackage{underscore}
+\usepackage{indentfirst}
+\usepackage{caption}
+\usepackage[bookmarks=true]{hyperref}
+\usepackage{graphicx}
+\hypersetup{
+    bookmarks=false,                                % show bookmarks bar
+    pdftitle={Software Requirements Specification}, % title
+%    pdfauthor={Yiannis Lazarides},                  % author
+%    pdfsubject={TeX and LaTeX},                     % subject of the document
+%    pdfkeywords={TeX, LaTeX, graphics, images},     % list of keywords
+    colorlinks=true,                                % false: boxed links; true: colored links
+    linkcolor=blue,                                 % color of internal links
+    citecolor=black,                                % color of links to bibliography
+    filecolor=black,                                % color of file links
+    urlcolor=purple,                                % color of external links
+    linktoc=page                                    % only page is linked
+}%
+\def\myversion{0.0 }
+
+\date{\today}
+\author{} % suppress warning, do not fill this in
+\begin{document}
+
+% we don't use \maketitle because we overide the default title page here
+\begin{titlepage}
+\flushright
+\rule{\textwidth}{5pt}\vskip1cm
+\Huge{SOFTWARE REQUIREMENTS SPECIFICATION}\\
+\vspace{1.5cm}
+for\\
+\vspace{1.5cm}
+Class Attendance Software\\                      %%% Update the title page text
+\vspace{1.5cm}
+\LARGE{Release 0.0\\}
+\vspace{1.5cm}
+\LARGE{Version \myversion approved\\}
+\vspace{1.5cm}
+Prepared by South Software Solutions\\
+\vfill
+\rule{\textwidth}{5pt}
+\end{titlepage}
+
+\tableofcontents
+% this will be automatically created from chapters, sections, and subsections
+
+\listoffigures
+% this will be automatically created from the figure environment
+
+\listoftables
+% this will be automatically created from the table environment
+
+\chapter*{Revision History}
+% Update this table for each approved/baselined revision of the requirements
+% Add the new content followed by a \hline
+
+\begin{tabular}{| c | p{0.60\textwidth} | p{0.30\textwidth} |}
+\hline
+Date     & Description   & Revised by \\
+\hline
+02/21/24 & Initial release & South Software Solutions \\
+\hline
+02/28/24 & New release & South Software Solutions \\
+\hline
+03/06/24 & New release & South Software Solutions \\
+\hline
+03/13/24 & New release & South Software Solutions \\
+\hline
+03/19/24 & Final release & South Software Solutions \\
+\hline
+\end{tabular}
+
+
+\chapter{INTRODUCTION}
+
+\section{Purpose}
+% purpose of this document
+The purpose of this document is to inform project stakeholders and any potential buyers about our class attendance software, ClassMate. It will explain in detail any conventions and acronyms that are used in this document. Project scope and product features will be explained at length. An overall description of the product will be provided, including the perspective of the problem being solved, the features the application provides, use cases and scenarios with different actors, the operating environment(s) in which the product will work, and the design and implementation of those features. Other non-functional requirements will also be described, including performance requirements, safety requirements, security requirements, and software quality attributes. The end of the document will have a list of standards that apply to the document and code, as well as a list of references used in this document.
+
+\section{Document Conventions}
+% how to read this document
+% for example "conforms to IEEE Standards Style Manual"
+% which defines "shall" "should" "may" and typographic conventions
+The SRS will conform to the IEEE Standards Style Manual usage for the following:
+\begin{itemize}
+\item The word \textbf{shall} is used to indicate mandatory requirements strictly to be followed in order to conform to the requirements and from which no deviation is permitted (shall equals is required to).
+\item The word \textbf{should} is used to indicate that that among several possibilities one is recommended as particularly suitable, without mentioning or excluding others; or that a certain course of action is preferred but not necessarily required; or that (in the negative form) a certain course of action is deprecated but not prohibited (should equals is recommended that).
+\item The word \textbf{may} is used to indicate a course of action permissible within the limits of the requirements (may equals is permitted).
+\item The words \textit{must} and \textit{will} are deprecated and shall not be used to describe mandatory requirements.
+\end{itemize}
+
+\section{Acronyms}
+% list of acronyms used in this document
+% that the typical reader won't know
+The following will be a list of acronyms that the typical reader wouldn't necessarily know.
+
+\begin{table}[hbt!]
+    \centering
+    \begin{tabular}{ || m{5em} | c || }
+    \hline
+    Acronym & Description\\
+    \hline\hline
+    BSD & Berkeley Software Distribution\\
+    \hline
+    CSV & comma-separated value (file format)\\
+    \hline
+    IEEE & Institute of Electrical and Electronics Engineers\\
+    \hline
+    IEC & International Electrotechnical Commission\\
+    \hline
+    ISO & International Organization for Standardization\\
+    \hline
+    NIST & National Institute of Standards and Technology\\
+    \hline
+    OOP & Object-Oriented Programming\\
+    \hline
+    SQL & Structured Query Language\\
+    \hline
+    UML & Unified Modeling Language\\
+    \hline
+    DBMS & Database Management System\\
+    \hline
+    \end{tabular}
+    \caption{Acronyms}
+    \label{tab:acronyms}
+\end{table}
+
+\clearpage
+
+\section{Project Scope and Product Features}
+% high level description of what is in scope and what is
+% out of scope for the software
+\textbf{Projects in the Scope:} 
+\begin{itemize}
+    \item \textbf{Bulk On-boarding}: Faculty members shall be able to on-board students in bulk or individually.
+    \item \textbf{Temporary Password upon Initiation}: Students shall have the ability to receive an email containing a temporary password, so they can set up their account.
+    \item \textbf{Student-Centered Attendance}: Students shall have the ability to keep track of their attendance in the classroom.
+    \item \textbf{Attendance Evaluation}: Faculty shall have the ability to evaluate attendance reports. They can print either the classroom attendance or individual attendance. 
+    \item \textbf{Classroom Management}: Faculty shall have the ability to add, edit, or delete students.
+    \item \textbf{Student Information Access}: Students shall have the ability to view their profile settings, track attendance, or view their attendance.
+    \item \textbf{Password Reset}: Users shall be able to access the account credentials recovery system, so they can reset their password.
+    \item \textbf{Admin Management}: Administrators shall be able to create, edit, or delete faculty accounts, student accounts, and courses.
+\end{itemize}
+
+\chapter{OVERALL DESCRIPTION}
+
+\section{Product Perspective}
+% background information about the software system
+% for example - what high level problem does it solve and why
+The ClassMate application provides a solution to educational institutes that require attendance inside their classrooms. With educational environments that consist of large numbers of attendees, ClassMate allows for a practical and efficient solution to track related attendance. 
+
+By moving the control of taking attendance from the teacher to the students, ClassMate empowers students to take responsibility for their attendance while providing educators with real-time insights into attendance patterns. Through a consistent user-friendly interface, students can easily confirm their presence in class using our platform.
+
+
+\section{Product Features}
+% a detailed list describing software features, NOT CODE
+% may include example screens and reports
+% may include activity or other UML diagrams
+ClassMate provides numerous features and functions to support administrators, educators and students in properly tracking, managing, and evaluating attendance in the classroom.
+\begin{itemize}
+    \item \textbf{On-boarding}: Faculty members shall have the ability to on-board students in bulk or individually. To upload in bulk, they shall be presented with a "File Upload" button where they should upload CSV files containing student information into the application. To upload individually, they shall be presented with an "Add Student" button where they should manually input the student's information. There shall also be options for editing specific student information if necessary.
+    \item \textbf{Temporary Password upon Initiation}: Upon being added through our on-boarding feature, students shall receive an email containing a temporary password to allow them to set up their user account. 
+    \item \textbf{Password Reset}: All users have access to our account credentials recovery system where they are able to reset their password. At the initial login page, there is a "Forgot Password" option that shall direct the user to another page where they should enter their email and a temporary access code shall then be sent to them in an email which ensures the correct person is changing the password. After submitting their email, a new page shall open for them to enter the temporary code. The user should then enter a new password and confirm that password. 
+    \item \textbf{Student-Centered Attendance}: Our application allows for students to be responsible for tracking their attendance in the classroom. Upon entering the classroom, an educator shall have the ability to display the 6-digit code provided to them for their classroom. Students should use the application to enter the provided code thus recording their attendance for the day. 
+    \item \textbf{Student Information Access}: When students enter their account, they shall have options to view their profile settings, track their attendance, and view their attendances. For viewing their attendances, they shall have the option to see their attendance for different classes and choose the time period for which they want to look at (day or term).
+    \item \textbf{Attendance Evaluation}: Faculty members shall have the ability to evaluate attendance reports on multiple levels.
+    \begin{itemize}
+        \item Print Classroom Attendance Reports: Faculty members have the option to print classroom attendance reports for a specific day as well as an attendance report for the entire term. 
+        \item Print Individual Attendance Reports: Faculty members have the option to print an attendance record for a specific student in their classroom for either a specific day or for the term.
+    \end{itemize}
+    \item \textbf{Classroom Management}: Faculty members shall have the ability to add, edit, or delete students as well as attendance records in a classroom.
+    \item \textbf{Admin Management}: Administrators shall have the ability to create, edit, or delete faculty accounts, student accounts, and courses.  
+\end{itemize}
+
+\section{User Classes and Characteristics}
+% use cases and usage scenarios - NOT OOP CLASSES
+It is important for us to outline our application's use cases to outline the intentions of our application towards our users. A use case in this context will capture the interactions that occur between our users and our application for a specific goal. The structure of these uses cases will include required functions, the actors, and possible actions. To see the created use case diagrams, reference figures \ref{fig:SRA}, \ref{fig:LIP-RAC}, or \ref{fig:VACS-EFA}.
+
+\subsection{Actors}
+It is important to understand the list of actors for ClassMate. According to Roger Pressman (2019, p.131). An actor can be defined as "an entity that interacts with a system object."  Below is a list of all applicable actors for ClassMate:
+\clearpage
+
+\begin{table}[h]
+    \centering
+        \begin{tabular}{ || m{5em} | m{5cm}| m{5cm} || }
+        \hline
+        Actor&Description&Goals\\ 
+        \hline\hline
+        Student&Individuals who hold an academic role of a "student"&Login, view courses, select a course, view attendance for course for the day, view over attendance for course, record attendance for class, view absence reports, reset password, onboard\\
+        \hline
+        Teacher&Individuals who hold an academic role of a "teacher"&Bulk upload(add) students, login, display attendance code, display attendance by date, print attendance by date, display/print attendance for student, display/print attendance for course, add students, delete students, edit students, add attendance records, delete attendance records, edit attendance records, change password, onboard\\
+        \hline
+        Admin&Individuals who hold an academic role of an "admin" or related administrative role&Purge expired courses, purge expired attendance records, create faculty accounts, delete faculty accounts, edit faculty accounts, change password, inherits all teacher goals\\
+    \hline
+    \end{tabular}
+    \caption{Actors}
+    \label{tab:my_label}
+\end{table}
+
+\clearpage
+
+\subsection{Use Cases}
+\hfill \break
+\textbf{Student Register Account-(SRA)}
+\begin{itemize}
+    \item Actor: Student
+    \item Goal: To add a new account to the platform for a student. 
+    \item Preconditions:
+    \begin{enumerate}
+        \item A faculty member must register the account to a course.
+        \item The student must have received an email upon having their account added to a course.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item Faculty member creates a student account and adds it to a created course.
+        \item An email is sent to the desired student with a temporary password and they access the email.
+        \item The student uses the provided temporary password to log onto the platform.
+        \item The platform redirects the student to a page that allows them to create a permanent password.
+        \item Student creates password.
+        \item Student is redirected to platform homepage.
+        \item Student account is registered.
+    \end{enumerate}
+\end{itemize}
+
+\clearpage
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Screenshot (6).png}
+    \caption{Use Case Diagram For SRA}
+    \label{fig:SRA}
+\end{figure}
+
+\clearpage
+
+\hfill \break
+\textbf{Log Into Platform-(LIP)}
+\begin{itemize}
+    \item Actor: Student, Teacher, Admin
+    \item Goal: To log account into the platform
+    \item Preconditions:
+    \begin{enumerate}
+        \item User account must be registered.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item Access the login screen.
+        \item Type login credentials into the input boxes and press "Login".
+        \item Account is logged in.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Student Reset Password-(RP)}
+\begin{itemize}
+    \item Actor: Student, Teacher, Admin
+    \item Goal: To reset an account's password.
+    \item Preconditions:
+    \begin{enumerate}
+        \item User account must be registered.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item Access the login screen.
+        \item Press "Forgot Password".
+        \item User is redirected to "Forgot Password" page.
+        \item User types in email into presented input box and presses "Send Request"
+        \item The User receives an email with a new temporary password.
+        \item The user logs into the platform with the provided temporary password.
+        \item The platform redirects the student to a page that allows them to create a permanent password.
+        \item Student creates password.
+        \item Student is redirected to platform homepage.
+        \item Student account is registered.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Student Observe Courses-(SOC)}
+\begin{itemize}
+    \item Actor: Student
+    \item Goal: To view all courses that are assigned to a student.
+    \item Preconditions:
+    \begin{enumerate}
+        \item User account must be registered to a class and logged in.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The user will click the "Courses" tab.
+        \item The platform redirects the user to the "Courses" tab.
+        \item The user can observe the courses they are assigned to.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Observe Single Course-(OSC)}
+\begin{itemize}
+    \item Actor: Student
+    \item Goal: To view all options for a single course that is assigned to a student.
+    \item Preconditions:
+    \begin{enumerate}
+        \item User account must be registered to a class and logged in.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The user accesses the courses section.
+        \item The user clicks on one of the course icons displayed.
+        \item The user is redirected to a page showing options for the clicked course.
+        \item The user can observe the single source they are assigned to.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{View Daily Attendance for Course-(VDAC)}
+\begin{itemize}
+    \item Actor: Student
+    \item Goal: To view a daily attendance record for a specific course.
+    \item Preconditions:
+    \begin{enumerate}
+        \item User account must be registered to a class and logged in.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The user accesses the course section.
+        \item The user selects an individual course.
+        \item The user clicks on the "View Attendance" option.
+        \item The user is redirected to a page with a view of an overall attendance record.
+        \item The user clicks on a specific day they want to view.
+        \item the user is redirected to a page that shows the attendance for that specific day.
+        \item the user can view their daily attendance record for the specified course.
+    \end{enumerate}
+\end{itemize}
+
+\hfill \break
+\textbf{View Overall Attendance for Course-(VOAC)}
+\begin{itemize}
+    \item Actor: Student
+    \item Goal: To view the overall attendance report for a course
+    \item Preconditions:
+    \begin{enumerate}
+        \item User account must be registered to a class and logged in.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The user accesses the course section.
+        \item The user selects an individual course.
+        \item The user clicks on the "View Attendance" option.
+        \item The user is redirected to a page with a view of an overall attendance record. There is an attendance percentage displayed on this page.
+        \item The user can view an overall attendance report for the specified course.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Record Attendance for Course-(RAC)}
+\begin{itemize}
+    \item Actor: Student
+    \item Goal: To record attendance for the day for a course.
+    \item Preconditions:
+    \begin{enumerate}
+        \item User account must be registered to a class and logged in.
+        \item An active attendance code must be provided to the user.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The user accesses the course section.
+        \item The user selects the course they want to record attendance for.
+        \item The user selects "Record Attendance".
+        \item The user is redirected to the "Record Attendance" page.
+        \item The student inputs the provided attendance code into the displayed input box and selects "Here!"
+        \item The user's attendance is now recorded for the day for that course.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\clearpage
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Screenshot (5).png}
+    \caption{Use Case Diagram For LIP - RAC}
+    \label{fig:LIP-RAC}
+\end{figure}
+
+\clearpage
+
+\hfill \break
+\textbf{Register Faculty Account-(RFA)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal: To register a faculty account onto the platform.
+    \item Preconditions:
+    \begin{enumerate}
+        \item An admin must create a faculty account on the platform.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item An admin adds a faculty member account to the platform.
+        \item The faculty member receives an email with a temporary password.
+        \item The faculty member accesses the login page of the platform and logs into the platform with the provided temporary password.
+        \item The faculty member is redirected to a page to allow them to create a permanent password. Here they will create the password and click "Create Password".
+        \item The faculty member is redirected to the "Courses" page of the platform.
+        \item The faculty member's account is registered onto the platform.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+
+
+\hfill \break
+\textbf{Bulk Upload Students-(BUS)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal: Upload multiple students at once
+    \item Preconditions:
+    \begin{enumerate}
+        \item The user must be logged into a faculty account.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item User logs in to faculty account
+        \item User navigates to manage classes menu
+        \item User navigates to upload menu
+        \item User selects class from drop-down of available classes
+        \item User clicks "Bulk Upload" button
+        \item From file browser, user selects a CSV file of student information.
+        \item Upon choosing file, student data is uploaded into class.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Faculty Observe Courses-(FOC)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal: Observe courses
+    \item Preconditions:
+    \begin{enumerate}
+        \item User must be logged in
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item User logs in
+        \item User navigates to View Classes menu
+        \item User highlights a class in a list to observe
+        \item User clicks "Observe" button
+        \item System displays information about highlighted class
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Display Attendance Code-(DAC)}
+\begin{itemize}
+    \item Actor: Student
+    \item Goal: Enter a code to display to students
+    \item Preconditions:
+    \begin{enumerate}
+        \item The user must be logged into a faculty account.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item User logs into account
+        \item System opens to enter code by default OR \\ User selects "Display Code" from banner
+        \item User enters a six-digit code into the text box
+        \item User clicks "Display" button
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{View Course Attendance Report by Date-(VCRD)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal: View attendance report of a given day
+    \item Preconditions:
+    \begin{enumerate}
+        \item User must be logged in to a faculty account
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item User logs in to faculty account
+        \item User navigates to View Classes menu
+        \item User highlights class
+        \item User selects day from drop down
+        \item User clicks "Observe" button
+        \item System displays attendance report for selected day
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Print Course Attendance Report By Date-(PCRD)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal: Print attendance report for user-specified date
+    \item Preconditions:
+    \begin{enumerate}
+        \item User must be logged in to a faculty account
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item User logs in
+        \item User navigates to View Classes menu
+        \item User highlights class
+        \item User selects day from drop down
+        \item User clicks "Observe" button
+        \item System displays attendance report for selected day
+        \item User clicks "Print" button
+        \item Context menu displays to save report to machine
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{View Individual Student Attendance Report by Date-(VSRD)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal: To view the attendance report of an individual student for a specific date.
+    \item Preconditions:
+    \begin{enumerate}
+        \item The faculty member must have appropriate access permissions to view student attendance reports.
+        \item The student whose attendance report is being viewed must be enrolled in a course taught by the faculty member.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The faculty member logs in to the academic portal using their credentials.
+        \item The faculty member navigates to the "Attendance Management" section.
+        \item The system presents options for attendance management, including viewing attendance reports.
+        \item The faculty member selects the option to "View Individual    Student Attendance Report by Date."
+        \item The system prompts the faculty member to enter the student's name or ID for whom the attendance report is desired.
+        \item The faculty member enters the student's name or ID into the designated input field.
+        \item The system prompts the faculty member to select the date they want to view the attendance report.
+        \item The faculty member selects the desired date from the calendar or enters it manually.
+        \item The system retrieves the attendance report for the selected student and date.
+        \item The attendance report is displayed, showing the student's attendance status (e.g., present, absent, late) for the selected date.
+        \item The faculty member reviews the attendance report and may take any necessary actions based on the information presented.
+        \item The faculty member may choose to print or download the attendance report for record-keeping purposes.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Print Individual Student Attendance Report by Date-(PSRD)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal: To print the attendance report of an individual student for a specific date.
+    \item Preconditions:
+    \begin{enumerate}
+        \item The faculty member must have appropriate access permissions to view and print student attendance reports.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The faculty member logs in to the academic portal using their credentials.
+        \item The faculty member navigates to the "Attendance Management" section.
+        \item The system presents options for attendance management, including viewing and printing attendance reports.
+        \item The faculty member selects "Print Individual Student Attendance Report by Date."
+        \item The system prompts the faculty member to enter the student's name or ID for whom the attendance report is desired.
+        \item The faculty member enters the student's name or ID into the designated input field.
+        \item The system prompts the faculty member to select the date they want to print the attendance report.
+        \item The faculty member selects the desired date from the calendar or enters it manually.
+        \item The system retrieves the attendance report for the selected student and date.
+        \item The attendance report is displayed on the screen, showing the student's attendance status (e.g., present, absent, late) for the selected date.
+        \item The faculty member reviews the attendance report to ensure accuracy.
+        \item The faculty member initiates the printing process by selecting the print option provided by the system.
+        \item The system sends the attendance report to the designated printer.
+        \item The faculty member collects the printed attendance report for record-keeping purposes.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{View Individual Student's Overall Attendance Report-(VSOR)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal: To view the overall attendance report of an individual student.
+    \item Preconditions:
+    \begin{enumerate}
+        \item The faculty member must have appropriate access permissions to view student attendance reports.
+        \item The student whose attendance report is being viewed must be enrolled in a course taught by the faculty member.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The faculty member logs in to the academic portal using their credentials.
+        \item The faculty member navigates to the "Attendance Management" section.
+        \item The system presents options for attendance management, including viewing overall attendance reports.
+        \item The faculty member selects "View Individual Student’s Overall Attendance Report."
+        \item The system prompts the faculty member to enter the student's name or ID for whom the attendance report is desired.
+        \item The faculty member enters the student's name or ID into the designated input field.
+        \item The system retrieves the overall attendance report for the selected student.
+        \item The attendance report is displayed, showing the student's overall attendance status (e.g., percentage of attendance, number of classes attended, number of classes missed) for the entire course duration.
+        \item The faculty member reviews the attendance report to understand the student's attendance patterns and performance.
+        \item The faculty member may take necessary actions based on the information presented, such as providing additional support or interventions for students with low attendance.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{View Individual Student's Overall Attendance Report-(PSOR)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal: To view the overall attendance report of an individual student.
+    \item Preconditions:
+    \begin{enumerate}
+        \item The faculty member must have appropriate access permissions to view student attendance reports.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item Faculty member logs in to the academic portal using their credentials.
+        \item Faculty member navigates to the "Attendance Management" section.
+        \item The system presents options for attendance management, including viewing overall attendance reports.
+        \item Faculty member selects the option to "View Individual Student’s Overall Attendance Report."
+        \item The system prompts the faculty member to enter the student's name or ID for whom the attendance report is desired.
+        \item Faculty member enters the student's name or ID into the designated input field.
+        \item The system retrieves the overall attendance report for the selected student.
+        \item An attendance report is displayed, showing the student's overall attendance status (e.g., percentage of attendance, number of classes attended, number of classes missed) for the entire course duration.
+        \item Faculty member reviews the attendance report to understand the student's attendance patterns and performance.
+        \item Faculty members may take necessary actions based on the information presented, such as providing additional support or interventions for students with low attendance.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{View Overall Course Course Attendance Report-(VOCR)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal: To view the overall attendance report for a course.
+    \item Preconditions:
+    \begin{enumerate}
+        \item The faculty member must have appropriate access permissions to view course attendance reports.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The faculty member logs in to the academic portal using their credentials.
+        \item The faculty member navigates to the "Attendance Management" section.
+        \item The system presents options for attendance management, including viewing overall course attendance reports.
+        \item The faculty member selects "View Overall Course Attendance Report."
+        \item The system retrieves the overall attendance report for the selected course.
+        \item The attendance report is displayed, showing the aggregate attendance status (e.g., average attendance rate, total number of classes conducted, total number of classes attended) for all students enrolled in the course.
+        \item The faculty member reviews the attendance report to assess the overall attendance trends and patterns for the course.
+        \item The faculty member may take necessary actions based on the information presented, such as adjusting course materials, scheduling additional sessions, or providing support for students with low attendance.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Print Overall Course Course Attendance Report-(POCR)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal:
+    \item Preconditions:
+    \begin{enumerate}
+        \item Precondition Start
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item Scenario Start
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Remove Student From a Course-(RSFC)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal:
+    \item Preconditions:
+    \begin{enumerate}
+        \item Precondition Start
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item Scenario Start
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Delete Student-(DS)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal:
+    \item Preconditions:
+    \begin{enumerate}
+        \item Precondition Start
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item Scenario Start
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Edit Individual Student's Profile-(ESP)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal:
+    \item Preconditions:
+    \begin{enumerate}
+        \item Precondition Start
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item Scenario Start
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Add Individual Attendance Record-(AAR)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal:
+    \item Preconditions:
+    \begin{enumerate}
+        \item Precondition Start
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item Scenario Start
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Delete Individual Attendance Record-(DAR)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal:
+    \item Preconditions:
+    \begin{enumerate}
+        \item Precondition Start
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item Scenario Start
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Edit Individual Attendance Record-(EAR)}
+\begin{itemize}
+    \item Actor: Faculty
+    \item Goal: Edit an individual attendance record for a student.
+    \item Preconditions: 
+    \begin{enumerate}
+        \item User account must be registered as faculty and logged in.
+        \item The faculty member has access rights to edit attendance records.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The faculty member accesses the course section.
+        \item The faculty member selects the course they want to edit attendance records for.
+        \item The faculty member selects "Edit Attendance". 
+        \item The faculty member is redirected to the "Edit Attendance" page.
+        \item The system displays a list of students enrolled in the selected course and session.
+        \item The faculty member selects the attendance record they want to edit.
+        \item The system displays information of the selected attendance record.
+        \item The faculty member will edit the information displayed as needed.
+        \item The system updates the attendance record with the new information.
+        \item The system displays a confirmation message indicating that the attendance record has been successfully updated.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Admin Register Account-(ARA)}
+\begin{itemize}
+    \item Actor: Admin
+    \item Goal: Register a new admin account in the system.
+    \item Preconditions:
+    \begin{enumerate}
+        \item There must be a admin account already registered in the system.
+        \item The admin must have access rights to register new accounts.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The admin accesses the admin management section of the system.
+        \item The admin selects "Register New Admin".
+        \item The admin is redirected to the "Register Admin" page.
+        \item The admin will out a registration form.
+        \item  The admin submits the registration form and the information will be validated.
+        \item The admin has successfully registered a new admin account in the system.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{View Active List of Course for School-(VACS)}
+\begin{itemize}
+    \item Actor: Admin
+    \item Goal: View a list of active courses offered by the school.
+    \item Preconditions:
+    \begin{enumerate}
+        \item There must be a admin account registered in the system.
+        \item The admin must be logged in.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The admin accesses the course management section of the system.
+        \item The admin selects the "view courses" section from the page. 
+        \item The system displays a list of all courses at the school.
+        \item The admin with filter the status column to only be able to see the classes with a status of active.
+        \item The admin has successfully viewed the active list of courses for the school.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{View Expired List of Courses for School-(VECS)}
+\begin{itemize}
+    \item Actor: Admin
+    \item Goal: View a list of expired courses that were previously offered by the school.
+    \item Preconditions:
+    \begin{enumerate}
+        \item There must be a admin account registered in the system.
+        \item The admin must be logged in.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The admin accesses the course management section of the system.
+        \item The admin selects the "view courses" section from the page. 
+        \item The system displays a list of all courses at the school.
+        \item The admin with filter the status column to only be able to see the classes with a status of expired.
+        \item The admin has successfully viewed the expired list of courses for the school.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{View Courses by Teacher-(VCT)}
+\begin{itemize}
+    \item Actor: Admin
+    \item Goal: View a list of courses taught by a specific teacher.
+    \item Preconditions:
+    \begin{enumerate}
+        \item There must be a admin account registered in the system.
+        \item The admin must be logged in.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The admin accesses the course management section of the system.
+        \item The admin selects the "view courses" section from the page. 
+        \item The system displays a list of all courses at the school.
+        \item The admin with filter the teacher column to only be able to see the classes with a the teacher of their choosing.
+        \item The admin has successfully viewed all courses taught by a specific teacher.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Purge Expired Courses-(PEC)}
+\begin{itemize}
+    \item Actor: Admin
+    \item Goal: To purge expired courses from the list of expired courses.
+    \item Preconditions: 
+    \begin{enumerate}
+        \item There must be preexisting expired courses for the school.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The user accesses the "building management" tab.
+        \item The user selects the "manage expired courses" section from the page.
+        \item The user is presented with a list of expired courses.
+        \item The user clicks one of the expired courses which highlights it and enables the "Remove" button.
+        \item The user clicks the "Remove" button.
+        \item The user is prompted with a dialog that allows them to confirm if they want to purge the expired courses from the list of expired courses with the options "Cancel" and "Remove".
+        \item The user clicks the "Remove" button.
+        \item The dialog closes and the user is presented with an updated list of expired courses without the removed course.
+        \item The user has purged an expired course from the list of expired courses.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Purge Expired Attendance Records-(VACS)}
+\begin{itemize}
+    \item Actor: Admin
+    \item Goal: To purge an expired attendance record from the list of attendance records.
+    \item Preconditions:
+    \begin{enumerate}
+        \item There must be preexisting expired attendance records for a course.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The user accesses the "building management" tab.
+        \item The user selects the "manage expired courses" section from the page.
+        \item The user is presented with a list of expired courses with a button next to each course that says "View Attendance Records"
+        \item The user clicks "View Attendance Records" next to the desired course they want to remove a record for.
+        \item The user is redirected to a list of expired attendance records for the selected course.
+        \item The user clicks on one of the expired attendance records which highlights it and enables the "Remove" button.
+        \item The user clicks the "Remove" button.
+        \item The user is prompted with a dialog that allows them to confirm if they want to purge the expired attendance record from the list of expired attendance records with the options "Cancel" and "Remove".
+        \item The user clicks the "Remove" button.
+        \item The dialog closes and the user is presented with an updated list of expired attendance records without the removed attendance record.
+        \item The user has purged an expired attendance record from the list of expired attendance records.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Create Faculty Account-(CFA)}
+\begin{itemize}
+    \item Actor: Admin
+    \item Goal: To create a faculty account for a school.
+    \item Preconditions:
+    \begin{enumerate}
+        \item An admin account must be registered on the platform.
+        \item The desired faculty member must have an existing e-mail account.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The user accesses the "building management" tab. 
+        \item The user is redirected to the "building management" view.
+        \item The user selects the "manage faculty" tab.
+        \item The user is redirected to the "manage faculty" tab which displays a list of current faculty members as well as a button that says "Add Faculty".
+        \item The user selects the "Invite Faculty" button.
+        \item The user is redirected to a form that asks for the details of the faculty member they want to add. The user inputs the details which includes a required e-mail address.
+        \item The user clicks "Send Invite" which sends an email to the desired faculty member.
+        \item The faculty member will follow the FRA use case.
+        \item The user is redirected to the "manage faculty" view.
+        \item Once the faculty member follows the FRA use case, the faculty account is added to the list of faculty accounts.
+        \item The faculty account is created for the school.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Delete Faculty Account-(DFA)}
+\begin{itemize}
+    \item Actor: Admin
+    \item Goal: To delete a faculty account from a school.
+    \item Preconditions:
+    \begin{enumerate}
+        \item There must be a preexisting faculty account in the list of faculty accounts.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The user accesses the "building management" tab. 
+        \item The user is redirected to the "building management" view.
+        \item The user selects the "manage faculty" tab.
+        \item The user is redirected to the "manage faculty" tab which displays a list of current faculty members as well as a button that says "Delete Account".
+        \item The user clicks the desired faculty member account to delete which highlights the account and enables the "Delete Account" button.
+        \item The user clicks the "Delete Account" button.
+        \item The user is prompted with a dialog that allows them to confirm if they want to delete the faculty account from the list of faculty accounts with the options "Cancel" and "Delete".
+        \item The user clicks "Delete".
+        \item The dialog closes and the user is presented with an updated list of faculty members without the deleted faculty account.
+        \item The user has deleted a faculty account from the school.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\hfill \break
+\textbf{Edit Faculty Account-(EFA)}
+\begin{itemize}
+    \item Actor: Admin
+    \item Goal: To edit a faculty member's account information
+    \item Preconditions:
+    \begin{enumerate}
+        \item There must be a preexisting faculty account in the list of faculty accounts.
+    \end{enumerate}
+    \item Scenario:
+    \begin{enumerate}
+        \item The user accesses the "building management" tab. 
+        \item The user is redirected to the "building management" view.
+        \item The user selects the "manage faculty" tab.
+        \item The user is redirected to the "manage faculty" tab which displays a list of current faculty members as well as a button that says "Edit".
+         \item The user clicks the desired faculty member account to edit which highlights the account and enables the "Edit" button.
+         \item The user clicks the "Edit" button.
+         \item The user is redirected to a view that displays all editable data for the faculty member.
+         \item The user edits the desired data on the view for the faculty member.
+         \item The user clicks "Save".
+         \item The user is redirected back to the "manage faculty" view.
+         \item The user has edited the faculty member's account.
+    \end{enumerate}
+\end{itemize}
+%USE CASE DIAGRAM HERE
+
+\clearpage
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{VACS-EFA.png}
+    \caption{Use Case Diagram For VACS-EFA}
+    \label{fig:VACS-EFA}
+\end{figure}
+
+\clearpage
+
+\section{Operating Environment}
+% client/server?
+% multiuser?
+% programming language?
+% specific libraries or technology?
+% CS server - OpenBSD, 64 bit, Intel/AMD compatible architecture,
+% xx diskspace required?
+% xx RAM required?
+% ??? other ???
+
+\begin{itemize}
+\item \textbf{Client and Server:}
+        \begin{itemize}
+            \item \textit{Client}
+            \begin{itemize} 
+                \item Web Browser Compatibility: The client-side of components of the software operate in the supporting web browsers environments: Google Chrome.
+            \end{itemize}
+            \item \textit{Server}
+            \begin{itemize}  
+                \item Database Management System: The server interacts with a database management system such as [ENTER DATABASE SYSTEM (MySQL ...)] to manage and store attendance logs and student information. 
+                \item Email: The ClassMate software relies on email communication to send notifications and password reset instructions to users. A SMTP (Simple Mail Transfer Protocol) server is required for sending emails to users. The system will use an external SMTP server for sending emails. The administrator is responsible for configuring the SMTP server settings in the software's configuration. 
+                \item Multi-user Support: The system supports multiple users concurrently ensuring that the faculty, students, and administrators will be able to interact with the system concurrently.
+                \item Network Connectivity: The server hosting the software must have a reliable internet connection to allow user to access the software from different locations. Students, faculty, and administrators will be required to have stable internet connectivity to access the ClassMate web-based interface.
+                \item Operating System: The server operating system chosen for ClassMate is OpenBSD for its strong reliability and security.
+                \item Server Specifications: The server runs on a 64-bit Intel/AMD architecture, ensuring compatibility with modern hardware. The software requires [XX GB] of disk space for data storage, depending on the storage used to store the information about students and attendance logs. [XX GB] of RAM is recommended for optimal performance.  
+            \end{itemize}
+            \end{itemize}
+            \item \textbf{Programming language:}
+                \begin{itemize}
+                    \item \textit{C++}
+                \begin{itemize}
+                    \item The ClassMate is implemented using C++ due to several key advantages that align with the software's requirements and the familiarity of the developments team with the language. C++ is known for its performance and efficiency in handling large volumes of data and concurrent user requests. Along with performance, various tools offered in C++ simplify the development process and reduce effort.
+                \end{itemize}
+            \end{itemize}
+            \item \textbf{Specific libraries/technology:}
+                \begin{itemize}
+                    \item \textit{Libraries}
+                    \begin{itemize}
+                        \item Boost C++ Library: A wide range of functionalities that is useful for handling file uploads, email notifications, and concurrent processing.
+                        \item Webtool kit Wt: The backend of the ClassMate software is developed using Wt, which is a C++ web toolkit for building web applications. Wt provides the necessary infrastructure for handling HTTP requests, managing sessions, and interacting with databases.
+                    \end{itemize}
+                \end{itemize}
+                \begin{itemize}
+                    \item \textit{SQL Database}
+                    \begin{itemize}
+                        \item The proposed software requires a SQL compliant database installed.
+                    \end{itemize}
+                \end{itemize}
+            \end{itemize}
+
+\section{Design and Implementation Constraints}
+% restrictions on the software system design or implementation
+This section describes the constraints on the design and implementation specified by the customer.
+\begin{itemize}
+\item \textbf{Project-specific constraints:}
+	\begin{itemize}
+	\item Time constraints: The final application due date is 05/08/2024.
+	\end{itemize}
+\end{itemize}
+
+\chapter{NONFUNCTIONAL REQUIREMENTS}
+
+\section{Performance Requirements}
+\begin{itemize}
+\item Email with temporary password should be sent within one hour.
+\item Attendance data should be processed within 5 seconds.
+\item Attendance data should be displayed within 5 seconds.
+\item Adding/deleting/editing attendance data should be processed within 5 seconds.
+\item Admin purging accounts should be within 5 seconds.
+\item The program shall support class sizes up to 100 students, while maintaining performance requirements.
+\item The program must be able to maintain performance requirements during peak hours of usage.
+\item The program should run on the University of North Alabama CS/CSIS server to support multi user access.
+\end{itemize}
+
+\section{Safety Requirements}
+\begin{itemize}
+\item The system shall not use flashing lights in the user interface to avoid triggering seizures in users with photosensitive epilepsy.
+\end{itemize}
+
+\section{Security Requirements}
+\begin{itemize}
+\item The system shall implement secure authentication using passwords.
+\item The system shall encrypt sensitive data such as passwords.
+\item The system shall restrict access for specified features.
+\item The system shall prevent tampering of data during transfer of data between application components and data stored in our DBMS.
+\end{itemize}
+
+\section{Software Quality Attributes}
+
+\subsection{Usability}
+    \begin{itemize}
+        \item The user interface shall be intuitive and user-friendly.
+        \item Users should navigate the system with minimal training.
+        \item The user interface shall hold consistency between navigation elements across the application.
+        \item The system shall provide feedback to user actions such as (but not limited to) successful order submissions, error notifications, and status updates.
+    \end{itemize}
+
+\subsection{Reliability}
+    \begin{itemize}
+        \item The system shall implement error handling that will detect and report errors in order to support the prevention of unexpected system failures.
+        \item The system shall prevent data corruption and loss of data during transactional processes.
+        \item The system shall conduct regular backups to minimize the impact of unexpected system failures.
+        \item The team shall be trained on all required tools used for the development of this project.
+    \end{itemize}
+
+\subsection{Performance Efficiency}
+\begin{itemize}
+    \item The system shall provide quick response times.
+    \item The system shall be scalable to support varying levels of user activity and data volume.
+    \item The system should optimize resource utilization including (but not limited to) server resources and bandwidth to enhance general system performance.
+\end{itemize}
+
+\subsection{Maintainability}
+\begin{itemize}
+    \item The system shall be designed and developed with a modular architecture to allow independent updates and modifications during construction activities.
+    \item Developers shall provide comprehensive documentation for both code and system functionality to aid developers and administrators in understanding and maintaining the system.
+    \item Developers shall use defined version control tools to manage change and updates to the system.
+\end{itemize}
+
+\subsection{Security}
+\begin{itemize}
+    \item The system shall use authentication mechanisms to ensure that only authorized users can access the system.
+    \item The system shall include role-based authorization controls to define user permissions.
+    \item The system shall encrypt sensitive data such as user credentials and transaction information to prevent unauthorized interception or tampering.
+    \item The development team should perform periodic security audits and vulnerability assessments to identify and address potential security risks.
+\end{itemize}
+
+\chapter{STANDARDS AND REFERENCES}
+
+\section{Applicable Standards}
+% relevant standards, NIST? ISO? IEEE?
+\begin{itemize}
+    \item\textbf{IEEE Standards}
+    \begin{itemize}
+    	\item This document conforms to the IEEE Standards Style Manual for terminology and style usage.  
+    	\item Any relevant standards used in the development process will be listed here in the future.
+    \end{itemize}
+    \item\textbf{Data Standards}
+    \begin{itemize}
+    \item CSV file handling conforms to RFC 4180 standards for CSV files to ensure compatibility across other systems
+    \end{itemize}        
+\end{itemize}
+\section{References}
+% list any documents cited in this document
+Pressman, R. (2019). Software Engineering: A Practitioner's Approach (9th ed.). McGraw-Hill Higher Education. [ISBN: 9781260964387]
+
+\end{document}

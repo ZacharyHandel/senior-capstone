@@ -1,0 +1,415 @@
+% CS 455, SP'24 Configuration Management Plan template
+% Software design template based on the template from
+% https://tex.stackexchange.com/questions/42602/software-requirements-specification-with-latex
+%
+\documentclass[letterpaper,12pt,oneside,listof=totoc]{scrreprt}
+\usepackage{listings}
+\usepackage{underscore}
+\usepackage[bookmarks=true]{hyperref}
+\usepackage{graphicx}
+\hypersetup{
+    bookmarks=false,                                % show bookmarks bar
+    pdftitle={Configuration Management Plan},       % title
+%    pdfauthor={Yiannis Lazarides},                  % author
+%    pdfsubject={TeX and LaTeX},                     % subject of the document
+%    pdfkeywords={TeX, LaTeX, graphics, images},     % list of keywords
+    colorlinks=true,                                % false: boxed links; true: colored links
+    linkcolor=blue,                                 % color of internal links
+    citecolor=black,                                % color of links to bibliography
+    filecolor=black,                                % color of file links
+    urlcolor=purple,                                % color of external links
+    linktoc=page                                    % only page is linked
+}%
+\def\myversion{1.0 }
+
+\date{\today}
+\author{} % suppress warning, do not fill this in
+\begin{document}
+
+% we don't use \maketitle because we overide the default title page here
+\begin{titlepage}
+\flushright
+\rule{\textwidth}{5pt}\vskip1cm
+\Huge{CONFIGURATION MANAGEMENT PLAN}\\
+\vspace{1.5cm}
+for\\
+\vspace{1.5cm}
+Materials Ordering System\\
+\vspace{1.5cm}
+\LARGE{Release 1.0\\}
+\vspace{1.5cm}
+\LARGE{Version \myversion approved\\}
+\vspace{1.5cm}
+Prepared by Yiannis Lazarides\\
+\vfill
+\rule{\textwidth}{5pt}
+\end{titlepage}
+
+\tableofcontents
+% this will be automatically created from chapters, sections, and subsections
+
+\listoffigures
+% this will be automatically created from the figure environment
+
+\listoftables
+% this will be automatically created from the table environment
+
+\chapter*{Revision History}
+% Update this table for each revision of the requirements
+% Add the new content followed by a \hline
+
+\begin{tabular}{| c | p{0.60\textwidth} | p{0.30\textwidth} |}
+\hline
+Date     & Description   & Revised by \\
+\hline
+xx/xx/xx & Initial draft & Team name \\
+\hline
+\end{tabular}
+
+% What is a Configuration Management Plan (CMP)?
+%
+% ``Configuration management encompasses the technical and administrative activities concerned with the creation, maintenance, controlled change and quality control of the scope of work.
+% 
+% A configuration is the functional and physical characteristics of a product as defined in its specification and achieved through the deployment of project management plans.''[1]
+% 
+% [1]Definition from APM Body of Knowledge 7th edition
+% 
+% This document was created from a CM Plan template used by NASA's Independent Verification and
+% Validation (IV&V) program.
+
+\chapter{INTRODUCTION}
+
+\section{Purpose}
+
+The purpose of this document is to outline the procedures and strategy required to track and implement
+changes to the class attendance software, ClassMate,by the team members of South Software Solutions.
+This document will provide feedback and suggestions on how to move and push changes during the 
+software development process and define the structure of how that change will be implemented to the product.
+these changes will be documented and and the changes made will be informed to the stakeholders
+along woth the CM tools used in the project.
+
+\section{Definitions}
+
+The following are definitions for acronyms that a typical reader would not necessarily know: 
+\begin{itemize}
+    \item \textbf{Baseline}: A milestone or a reference point indicated by the completion of software config items.
+    \item \textbf{Issue}: A problem that has occurred while development of the product.
+    \item \textbf{Bug}: A fault or an error in the design or development of the software.
+    \item \textbf{Build}: A block of executable code ready for production.
+    \item \textbf{CI}: Continuous Integration (CI) which refers to the testing stages of the software release process.
+    \item \textbf{CR}: Change request (CR) refers to change requested in the functional design of the product.
+    \item \textbf{PR}: A Pull request (PR) is a proposal to merge the set of changes from one branch to another.
+    \item \textbf{PIR}: A Problem incident report (PIR) is a report which is generated to fix an issue when one is detected.
+    \item \textbf{Branch}: An individual project within a repository.
+\end{itemize}
+
+\section{References}
+
+This section is optional. List any documents, if any, which were used as sources of information.
+
+
+\chapter{CONFIGURATION MANAGEMENT}
+
+Configuration Management will be used in this project to ensure that it remains up to all standards as it is evolving. Configuration Management will be used to coordinate team member collaboration whilst working on the project. It should also help to lighten risks associated with making changes to the system. Configuration management should assist in maintaining consistency and accuracy within the class attendance software. 
+
+\section{Organization}
+
+The Configuration Management system will be structured in the following manner.
+
+\begin{itemize}
+    \item \textbf{Version Control System:}
+    \begin{itemize}
+        \item For this project we will be using Gitea to monitor changes to the source code. 
+        \item Developers will use this tool to clone the repository onto their local machines and work within their specified branch to make changes to the main repository. The mergers on the team will merge their changes onto the main repository and ensure there are no conflicts. 
+    \end{itemize}
+    \item \textbf{Branching:}
+    \begin{itemize}
+        \item For this project we will make branches that developers will work on to prevent all work from being added directly to the main repository. We will be breaking the project up into three branches. 
+        \begin{itemize}
+            \item \textbf{Main}
+            \begin{itemize}
+                \item The main branch will be the production branch. This means that the other branches will merge into main and will go into the final product. 
+            \end{itemize}
+        \end{itemize}
+        \begin{itemize}
+            \item \textbf{Development}
+            \begin{itemize}
+                \item The development branch will be used for testing features before they are merged onto the main branch. This will be useful in ensuring faulty code is not present in production. Once the feature passes testing, it will be merged into the main branch
+            \end{itemize}
+        \end{itemize}
+        \begin{itemize}
+            \item \textbf{Feature}
+            \begin{itemize}
+                \item The feature branch will be used to develop any new features to be added to the project. After a project has been successfully developed it will then be merged into the Development branch to be tested. 
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Testing:}
+    \begin{itemize}
+        \item Each feature will be tested extensively to ensure nothing is added into production that would damage its functionality and/or quality. 
+        \item Each new feature will be tested in the development branch before being merger onto the main branch. 
+        \item All test results will be stored in the comments of the issue found in gitea.
+        \item Types of Testing:
+        \begin{itemize}
+            \item Smoke testing- This testing will be used to test core functionality throughout the project. It will be preformed as new features are added and will be the first step during testing. It will ensure that all features are functioning as intended.
+            \item Security testing- This testing will be used to ensure that the security of our software is sound. These tests will be performed after security features have been implemented (like hashing passwords). The tests will be used exhaustively to ensure security standards are maintained. 
+            \item Usability testing- This will be used to ensure that all user interfaces are intuitive and don't cause any unnecessary confusion. These tests will be used any time a new element is added to the user interface to ensure that it is not unnecessary and works as intended. 
+            \item Performance Testing- This testing will be used to ensure the program is stable, fast, and responsive under a variety of conditions. This testing will be performed as new features are added to ensure that performance has not been altered, and when nearing the finished product so that any optimizations can be made to increase performance. 
+            \item Stress testing- These tests will be performed to ensure the program maintains performance, even under extreme conditions. These tests will be performed after server setup in regards to multiple users to see how handles a large number of users at once. 
+            \item Integration testing- These tests will be used to ensure that different pieces of software work together as expected. These tests will be preformed any time a new feature is added to ensure that everything is working as intended and is not breaking or behaving strangely. 
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Documentation:}
+    \begin{itemize}
+        \item Each merge will have descriptive documentation associated with it to accurately convey the changes and/or additions being made to the branch. 
+        \item All documentation in regards to this project's use or design will be updated if needed. 
+        
+    \end{itemize}
+    
+    \begin{tabular}{| c | p{0.30\textwidth} | p{0.30\textwidth} |}
+    \hline
+    Name     & Description   & Location \\
+    \hline
+    Task document & includes everything the developer needs to know for code & comments of issues in gitea \\
+    \hline
+    Investigation document & will be updated as developers code and find different issues or risks & issue tracker in gitea \\
+    \hline
+    Peer Review document & This document is made by developer before being passed on to person doing peer review. This should include test criteria, test cases, and test scenarios.  & issue tracker in gitea\\
+    \hline
+    Final Task document & once a task gets approved, this will be a single collective document that is compiled and presented in the "in class" stand up meetings & issue tracker in gitea\\
+    \hline
+    \end{tabular}
+    \item \textbf{Mergers:}
+    \begin{itemize}
+        \item The team has been effectively split up into six parts. It has been split up into three development teams, frontend leaders, backend leaders, and a head lead. Each team has members with different skill sets which should provide for efficient development. Once development on a task has been completed, one of the five leaders will merge the changes onto the appropriate branch. 
+    \end{itemize}
+\end{itemize}
+
+\section{Responsibilities and Applicability}
+Anyone involved with the developing, managing, or overseeing this project should ad-hear to the guidelines laid out in the Configuration Management Plane. Failure to do so would result in a loss of consistency, traceability and compliance. All teams should take special care in following these guidelines. 
+
+\chapter{CONFIGURATION MANAGEMENT ACTIVITIES}
+
+This section details the specific procedures and activities used by the project team to control work products.
+
+\section{CI Identification}
+
+How are CI's identified (numbers, hashes, etc.)? List the types of CIs that must be tracked (e.g. team meeting notes, requirements, training info, source code, test scripts, test results, design docs, test docs, builds, releases, CM tools, developer tools, reviews, etc.).
+
+\subsection{Software Development Library}
+
+How will CIs be stored and organized so that team members and stakeholders can access them? Detail the control mechanism(s), number of libraries, backup and disaster recovery plans and procedures, retention policy and plan (what needs to be archived, for who, and for how long), and where the SDL will be stored.
+
+\subsection{Project Baselines}
+
+What are the planned project baselines? List how and when each baseline will be created, who authorizes the baseline, who verifies the baseline, the purpose of the baseline, and what is in the baseline.
+
+\subsection{Software Builds}
+
+How will a specific build be identified and controlled? What is included in a build? If there will be different types of builds (for example, development, candidate, release), describe information for each type.
+
+\section{Configuration Control}
+
+\subsection{Tools for Change Control}
+
+The tools used for CM will be Gitea and [CHOICE OF SPREADSHEET SOFTWARE]. For Gitea, it is hosted on the UNA CS server and obtaining access will be through faculty, particularly Dr. Jerkins. As for the spreadsheet software, [STEPS TO GET ACCESS].
+
+\subsection{Procedure for Change Requests}
+
+Changes will be requested by any team member editing code by creating their own branches on the repository. Change requests will be reviewed and potentially approved by the select members of the leadership team of the ClassMate software, including Joseph Gray, Zachary Handel, and Ethan Rice. 
+
+\subsection{Procedure for Changing Baselines}
+
+Baseline changes can be requested by one of the three teams as agreed upon by the team. As in, the individuals in the smaller teams will work together to create a baseline and request that as a change. The baseline change requests will be reviewed by the entire leadership team, and potentially approved by those with access in the above section.
+
+\subsection{Review Procedure}
+
+The software will be reviewed by all team members in three ways.
+
+\begin{itemize}
+    \item \textbf{Software Reviews:}
+    \begin{itemize}
+        \item Software reviews will be held biweekly, occurring before meeting times on Monday and Friday nights. They will be held by the smaller team responsible for their code by an individual first reviewing with their programming partner, then by the team as a whole.
+    \end{itemize}
+    \item \textbf{Notes:}
+    \begin{itemize}
+        \item Notes are recorded on each meeting by a note taker selected as the meeting begins and is done on a word processing software like Google Docs or Microsoft Word. All notes are then posted to the team's Discord server, where they then can be viewed.
+    \end{itemize}
+    \item \textbf{Issues:}
+    \begin{itemize}
+        \item Issues will be tracked to completion using the Gitea software, and are also recorded on the software.
+    \end{itemize}
+\end{itemize}
+
+\section{Status Accounting and Reporting}
+
+\subsection{Status Reporting}
+
+List the information that must be reported, who it is reported to, and how the information is controlled. This list should include periodic stats reports within the project, reports to management, and reports to stakeholders.
+
+\begin{itemize}
+    \item \textbf{Periodic Stats Reports:}
+    \begin{itemize}
+        \item \textit{Information reported:}
+        \begin{itemize}
+            \item 
+        \end{itemize}
+        \item \textit{Reported to:}
+        \begin{itemize}
+            \item 
+        \end{itemize}
+        \item \textit{How it is controlled:}
+        \begin{itemize}
+            \item 
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Reports to Management:}
+    \begin{itemize}
+        \item \textit{Information reported:}
+        \begin{itemize}
+            \item 
+        \end{itemize}
+        \item \textit{Reported to:}
+        \begin{itemize}
+            \item 
+        \end{itemize}
+        \item \textit{How it is controlled:}
+        \begin{itemize}
+            \item 
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Reports to stakeholders:}
+    \begin{itemize}
+        \item \textit{Information reported:}
+        \begin{itemize}
+            \item 
+        \end{itemize}
+        \item \textit{Reported to:}
+        \begin{itemize}
+            \item 
+        \end{itemize}
+        \item \textit{How it is controlled:}
+        \begin{itemize}
+            \item 
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Issue Tracking}
+
+Issues will be recorded, tracked, and reported all through Gitea; as well as being reported directly to the smaller team responsible for the issue. Issue assignment will be handled by the CM team, and issue completion will be up to the smaller team/person responsible for it. Audits will be conducted biweekly by the CM team to ensure issues are being taken care of in a timely manner.
+
+\subsection{Release Process}
+
+Releases of our software will occur weekly on Wednesdays at 10 AM. Patch notes will be provided with each release in a change log, and the releases will be provided to end users and stakeholders. Known problems or fixes will be included in said patch notes. No installation is necessary as the software will be hosted on the UNA CS server and accessible from the web.
+
+\section{CM Milestones}
+    A proper set of milestones encompassed in a set of defined baselines is seen below as a reference for all tasks and activities. The following items will be included to define all respective milestones: A general milestones chart, a weekly milestones chart, and a list of dated milestones.
+    \subsection{General Milestones}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=1\textwidth]{General Milestones.png}
+        \caption{General Milestones Chart}
+        \label{fig:General Milestones Chart}
+    \end{figure}
+
+\clearpage
+    \subsection{Weekly Milestones}
+        \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=1\textwidth]{Weekly Milestones.png}
+        \caption{General Milestones Chart}
+        \label{fig:General Milestones Chart}
+    \end{figure}
+
+\clearpage
+
+    \subsection{Dated Milestones}
+\begin{enumerate}
+    \item \textbf{Use Case Modeling:} March 6 at 10 AM
+        \begin{itemize}
+            \item \textbf{Final SRS Release}
+        \end{itemize}
+    \item \textbf{Architecture Modeling:} March 6 at 10 AM
+    \item \textbf{CM Plan:} March 6 at 10 AM
+    
+    \item \textbf{Design Modeling:}
+        \begin{itemize}
+            \item \textbf{Task Development:} March 13 by 10 AM - CM
+            \item \textbf{Class Modeling:} March 13 by 10 AM - BE
+            \item \textbf{Sequence Modeling:} March 13 by 10 AM - FE
+            \item \textbf{Data Modeling:} March 13 by 10 AM - BE
+            \item \textbf{View Modeling:} March 13 by 10 AM - FE
+        \end{itemize}
+    
+    \item \textbf{1st Status Report Doc:} March 11 - March 13 by 3 PM
+    
+    \item \textbf{Refine Design Modeling:} March 20 by 10 AM
+    \item \textbf{Data Modeling:} March 20 by 10 AM
+    \item \textbf{UI Modeling:} March 20 by 10 AM
+    
+    \item \textbf{2nd Status Report Doc:} March 18 - March 20 by 3 PM
+    
+    \item \textbf{Environment Set Up:} March 20 - March 22 by 8:30 PM
+        \begin{itemize}
+            \item File Structure/Branch Structure
+        \end{itemize}
+    \item \textbf{Database Development:} March 20 - March 22 by 8:30 PM
+        \begin{itemize}
+            \item Full DB (refinement expected)
+        \end{itemize}
+    \item \textbf{Start UI Development:} March 20 - March 22 by 8:30 PM
+        \begin{itemize}
+            \item Create empty/semi-empty views
+        \end{itemize}
+    
+    \item \textbf{First Development Round:} March 25 by 8:30 PM
+    \item \textbf{First Testing Round:} March 26 by 10 PM
+    \item \textbf{First Deployment:} March 27 by 10 AM
+    
+    \item \textbf{3rd Status Report Doc:} March 25 - March 27 by 3 PM
+    
+    \item \textbf{Second Development Round:} March 27 - April 1 by 8:30 PM
+    \item \textbf{Second Round of Testing:} April 2 by 10 PM
+    \item \textbf{Second Deployment:} April 3 by 10 AM
+    
+    \item \textbf{4th Status Report Doc:} April 1 - April 3 by 3 PM
+    
+    \item \textbf{Third Development Round:} April 3 - April 8 by 8:30 PM
+    \item \textbf{Third Round of Testing:} April 9 by 10 PM
+    \item \textbf{Third Deployment:} April 10 by 10 AM
+    
+    \item \textbf{5th Status Report Doc:} April 8 - April 10 by 3 PM
+    
+    \item \textbf{4th Round of Development:} April 10 - April 15 by 8:30 PM
+    \item \textbf{4th Round of Testing:} April 16 by 10 PM
+    \item \textbf{4th Deployment:} April 17 by 10 AM
+    
+    \item \textbf{6th Status Report Doc:} April 15 - April 17 by 3 PM
+    
+    \item \textbf{5th Round of Development:} April 17 - April 22 by 8:30 PM
+    \item \textbf{5th Round of Testing:} April 23 by 10 PM
+    \item \textbf{5th Deployment:} April 24 by 10 AM
+    
+    \item \textbf{7th Status Report Doc:} April 22 - April 24 by 3 PM
+    
+    \item \textbf{FINAL DEPLOYMENT WEEK:} April 25 - April 30 at 10 PM
+        \begin{itemize}
+            \item Lots of testing and refinement
+            \item Final Presentation
+        \end{itemize}
+    \item \textbf{Final Release:} May 1 at 10 AM
+\end{enumerate}
+
+\section{Training}
+To ensure team members are trained on key aspects of the ClassMate software, training topics will include:
+\begin{enumerate}
+\item \textbf{MVC Architecture} - All team members must be trained on the MVC Architecture.
+\item \textbf{Wt Framework for Web Development} - All team members must be trained on the Wt "witty" Framework.
+\item \textbf{Version control using Gitea} - All team members must be trained on gitea version control.
+\end{enumerate}
+
+The primary training method will be lectures and assignments, but team leaders will provide additional training as needed.
+We will use a spreadsheet to document the training on each aspect for the entire team. Training documents will be stored in a repository separate from code and other software artifacts.
+
+\end{document}

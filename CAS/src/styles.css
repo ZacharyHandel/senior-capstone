@@ -1,0 +1,130 @@
+* {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.submitBtn {
+    background-color: #f39c12;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+    width: 128px;
+    height: 35px;
+    border: none;
+    outline: none;
+}
+
+a.submitBtn {
+    text-decoration: none;
+    padding: 10px 48px;
+    font-size: 14px; 
+}
+
+.submitBtn:hover {
+    background-color: #f4b44e;
+    cursor: pointer;
+}
+.primaryNavBtn {
+    background-color: #007ea7;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+    width: 128px;
+    height: 35px;
+    border: none;
+    outline: none;
+}
+
+a.primaryNavBtn {
+    text-decoration: none;
+    padding: 10px 48px;
+    font-size: 14px;
+}
+
+.primaryNavBtn:hover {
+    background-color: #5cbcdd;
+    cursor: pointer;
+
+}
+
+.secondaryNavBtn {
+    border: none;
+    outline: none;
+    background-color: none;
+    color: #8e99a2;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a.secondaryNavBtn {
+    text-decoration: none;
+}
+
+.secondaryNavBtn:hover {
+    color: #6a6a6a;
+    font-weight: bolder;
+}
+
+.removalBtn {
+    background-color: #c0392b;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+    width: 128px;
+    height: 35px;
+    border: none;
+    outline: none;
+}
+
+a.removalBtn {
+    text-decoration: none;
+    padding: 10px 48px;
+    font-size: 14px;
+}
+
+.removalBtn:hover {
+    background-color: #db584a;
+    cursor: pointer;
+}
+
+.inputLbl {
+    font-weight: bold;
+}
+
+.dataTable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.dataTable th, .dataTable td {
+	padding: 8px;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
+	border: 2px solid lightgray;
+}
+
+.dataTable th {
+	background-color: #f39c12;
+	color: white;
+	font-weight: bold;
+}
+
+.dataTable tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.dataTable tr:hover {
+	background-color: #ddd;
+}
+
+
+.dataTableHeader {
+    background-color: #f39c12;
+    color: white;
+    font-weight: bold;
+    text-align: left;
+    padding: 8px;
+}
